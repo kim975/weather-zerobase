@@ -1,0 +1,23 @@
+### Create Diary
+POST http://localhost:8080/create/diary?date=2022-03-20
+Content-Type: application/text
+
+qqwer
+
+### read Diary
+GET http://localhost:8080/read/diary?date=2022-05-20
+Content-Type: application/text
+
+### read Diaries
+GET http://localhost:8080/read/diaries?startDate=2022-03-20&endDate=2022-05-20
+Content-Type: application/text
+
+### update Diary
+PUT http://localhost:8080/update/diary?date=2022-05-20
+Content-Type: application/text
+
+update~~~~~~
+
+### delete Diary
+DELETE http://localhost:8080/delete/diary?date=2022-05-20
+Content-Type: application/text
