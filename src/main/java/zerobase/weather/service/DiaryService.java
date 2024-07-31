@@ -60,6 +60,9 @@ public class DiaryService {
 
 
     public void createDiary(LocalDate date, String text) {
+
+        log.info("started to create diary");
+
         // 날씨 데이터 가져오기 (API 에서 가져오기 or DB에서 가져오기)
         DateWeather dateWeather = getDateWeather(date);
 
@@ -69,6 +72,8 @@ public class DiaryService {
         nowDiary.setText(text);
 
         diaryRepository.save(nowDiary);
+
+        log.info("end to create diary");
 
     }
 
@@ -135,6 +140,8 @@ public class DiaryService {
 
     @Transactional(readOnly = true)
     public List<Diary> readDiary(LocalDate date) {
+        log.debug("read diary");
+
         return diaryRepository.findAllByDate(date);
     }
 
