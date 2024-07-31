@@ -16,9 +16,13 @@ spring:
       hibernate:
         format_sql: true
         show_sql: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 logging:
   config: classpath:logback-spring.xml
+
 
 openweathermap:
   key: 4f19cdadf58fac3581d6961dd2b7fc4f

@@ -1,5 +1,8 @@
 package zerobase.weather.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -8,6 +11,7 @@ import zerobase.weather.domain.Diary;
 import zerobase.weather.service.DiaryService;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -17,6 +21,7 @@ public class DiaryController {
 
     private final DiaryService diaryService;
 
+    @Operation(summary = "일기 텍스트와 날씨를 이용해서 DB에 일기 저장")
     @PostMapping("/create/diary")
     public void createDiary(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
@@ -25,6 +30,7 @@ public class DiaryController {
         diaryService.createDiary(date, text);
     }
 
+    @Operation(summary = "선택한 날짜의 모든 일기 데이터를 가져옵니다.")
     @GetMapping("/read/diary")
     public List<Diary> readDiary(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
@@ -32,10 +38,11 @@ public class DiaryController {
         return diaryService.readDiary(date);
     }
 
+    @Operation(summary = "선택한 기간중의 모든 일기 데이터를 가져옵니다.")
     @GetMapping("/read/diaries")
     public List<Diary> readDiaries(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @Parameter(description = "조회할 기간의 첫번째날", example = "2022-01-01") LocalDate startDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @Parameter(description = "조회할 기간의 마지막날", example = "2022-01-01") LocalDate endDate
     ) {
         return diaryService.readDiaries(startDate, endDate);
     }
